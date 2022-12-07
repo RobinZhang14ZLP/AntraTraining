@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Assignment</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        input[type="checkbox"] {
+            width: auto
+        }
+        button {
+            color: #FFFF;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .sign-up-page {
+            margin: auto;
+            width: 600px;
+            font-family: Arial, Helvetica, sans-serif; 
+        }
+        .half-left {
+            width: 48%;
+        }
+        .half-right {
+            width: 48%;
+            float: right;
+        }
+        .terms {
+            width: 80%;
+            float: right;
+        }
+        .registerText {
+            color: #FFFF;
+            background-color: #3956e6;
+            border-radius: 3px;
+            font-size: 80%;
+            padding: 3px
+        }
+        .registerButton {
+            background-color: #3956e6;
+        }
+        .signinButton {
+            background-color: #36b52d;
+        }
+        @media screen and (max-width: 600px) {
+            .sign-up-page, .half-left, .half-right {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sign-up-page">
+        <form>
+            <h1>Sign Up</h1>
+            <ul>
+                <li>
+                    <div>
+                        <span>
+                            <input type="text" class="half-left" placeholder="First Name" name="firstName">
+                        </span>
+                        <span>
+                            <input type="text" class="half-right" placeholder="Last Name" name="lastName">
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <input type="tel" class="full" placeholder="Mobile No." name="mobile">
+                    </div>
+                    
+                </li>
+                <li>
+                    <div>
+                        <input type="email" class="full" placeholder="Email" name="email">
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span>
+                            <input type="password" class="half-left" placeholder="Password" name="password">
+                        </span>
+                        <span>
+                            <input type="password" class="half-right" placeholder="Confirm Password" name="confirmPassword">
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            <label>
+                <input type="checkbox" name="check"> <b>I agree</b>
+                <p class="terms">By clicking <span class="registerText">Register</span>, you agree to the <a href="">Terms and Conditions</a> set out by this site, including our Cookie use.</p class="terms">
+            </label>
+            <div>
+                <button class="registerButton half-left">Register</button>
+                <button class="signinButton half-right">Sign In</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
