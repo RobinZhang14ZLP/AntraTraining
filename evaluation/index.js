@@ -14,8 +14,12 @@ const API = (() => {
 const View = (() => {
     const domstr = {
         available: ".available-list",
-        selected: ".selected-list"
+        selected: ".selected-list",
+        button: "form",
+        credit: ".credit-number"
     };
+
+    let selectCourse = [];
 
     const createTmp = (arr) => {
         let tmp = '';
@@ -27,7 +31,7 @@ const View = (() => {
             if (i%2 === 0) color = "even-child";
             if (element.required) type = "Compulsory";
             tmp += `
-                <li class="${color}">
+                <li class="${color}" id="${element.courseId}">
                     <p>${element.courseName}</p>
                     <p>Course Type: ${type}</p>
                     <p>Course Credit: ${element.credit}</p>
@@ -42,10 +46,44 @@ const View = (() => {
         ele.innerHTML = tmp;
     };
 
+    const bindSelection = (handler) => {
+        const courses = document.querySelector(domstr.available);
+        const credit = document.querySelector(domstr.credit);
+
+        courses.addEventListener("click", event => {
+            //console.log(event.target);
+            const li = event.target.parentElement;
+            //console.log(li.classList)
+            li.classList.toggle("selected-child")
+            if (li.select === "1") li.select = "0";
+            else li.select = "1";
+            console.log(selectCourse);
+            handler(li.id, li.select, li);
+        });
+    };
+
+    const decline = (li) => {
+        li.classList.toggle("selected-child")
+    };
+
+    const bindSubmit = (handler) => {
+        const button = document.querySelector(domstr.button);
+        const credit = document.querySelector(domstr.credit);
+        console.log(button);
+
+        button.addEventListener('submit', event => {
+            event.preventDefault();
+            handler(credit.innerHTML, selectCourse);
+        });
+    };
+
     return {
         domstr,
         createTmp,
-        render
+        render,
+        bindSelection,
+        decline,
+        bindSubmit
     }
 })();
 
@@ -92,7 +130,10 @@ const Model = ((api, view) => {
 })(API, View);
 
 const Controller = ((model, view) => {
-    const available = new model.List();
+    const available = new model.List(false);
+    const selected = new model.List(true);
+    let tempSelect = [];
+    let selectCredit = 0;
 
     const init = () => {
         model.getCourse().then(res => {
@@ -101,8 +142,45 @@ const Controller = ((model, view) => {
         });
     };
 
+    const addSelection = () => {
+        view.bindSelection((id, add, li) => {
+            console.log(id, add);
+            const credit = available.courses.filter(course => course.courseId == id)[0].credit;
+            if (add === '1') {
+                tempSelect.push(id);
+                selectCredit += credit;
+                if (selectCredit >= 18) {
+                    selectCredit -= credit;
+                    alert("You cannot choose for more than 17 credits. ");
+                    view.decline(li);
+                }
+            }
+            else {
+                tempSelect = tempSelect.filter(num => num !== id);
+                selectCredit -= credit;
+            }
+            console.log(tempSelect);
+            
+            document.querySelector(view.domstr.credit).innerHTML = selectCredit;
+        });
+    };
+
+    const submitToSelected = () => {
+        view.bindSubmit((credit, selectCourse) => {
+            const submitCourses = available.courses.filter(course => course.courseId in selectCourse);
+            console.log(available);
+            console.log(selectCourse);
+            if (credit < 18) {
+                confirm("You have choose "+credit+" credits, do you want to confirm?")
+                selected.courses = submitCourses;
+            }
+        });
+    };
+
     const bootstrap = () => {
         init();
+        addSelection();
+        submitToSelected();
     };
 
     return {
