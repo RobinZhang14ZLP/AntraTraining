@@ -23,7 +23,7 @@ const View = (() => {
 
     const createTmp = (arr) => {
         let tmp = '';
-        console.log(arr);
+        // console.log(arr);
         for (let i = 0; i < arr.length; i++) {
             const element = arr[i];
             let type = "Elective";
@@ -114,7 +114,7 @@ const Model = ((api, view) => {
 
         set courses(newList) {
             this.#courses = newList;
-            console.log(this.#courses);
+            // console.log(this.#courses);
             const container = document.querySelector(this.#type);
 
             const tmp = view.createTmp(this.#courses);
@@ -159,7 +159,7 @@ const Controller = ((model, view) => {
                 tempSelect = tempSelect.filter(num => num !== id);
                 selectCredit -= credit;
             }
-            console.log(tempSelect);
+            // console.log(tempSelect);
             
             document.querySelector(view.domstr.credit).innerHTML = selectCredit;
         });
@@ -167,11 +167,12 @@ const Controller = ((model, view) => {
 
     const submitToSelected = () => {
         view.bindSubmit((credit, selectCourse) => {
-            const submitCourses = available.courses.filter(course => course.courseId in tempSelect);
-            console.log(available);
             console.log(tempSelect);
             if (credit < 18) {
                 confirm("You have choose "+credit+" credits, do you want to confirm?")
+                const submitCourses = available.courses.filter(course => tempSelect.includes(course.courseId.toString()));
+                console.log(tempSelect);
+                console.log(submitCourses);
                 selected.courses = submitCourses;
                 available.courses = available.courses;
             }
