@@ -1,3 +1,42 @@
 h1 {
     text-align: center;
 }
+
+.top-container {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.available-bucket,
+.selected-bucket {
+    height: 300px;
+    width: 200px;
+    overflow: auto;
+    border: 1px;
+    border-color: black;
+    border-style:solid;
+}
+
+.available-list li, 
+.selected-list li {
+    border: 2px;
+    border-color: black;
+    border-style:solid;
+}
+
+.even-child {
+    background-color: rgb(221, 239, 221);
+}
+
+.bottom-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.credit-number {
+    margin-left: 5px;
+    margin-right: 5px;
+}
