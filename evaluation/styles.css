@@ -21,9 +21,25 @@ h1 {
 
 .available-list li, 
 .selected-list li {
-    border: 2px;
+    border: 1px;
     border-color: black;
     border-style:solid;
+}
+
+ul {
+    padding: 0
+}
+
+li {
+    width: auto;
+    height: auto;
+    list-style: none;
+}
+
+li p {
+    padding: 0;
+    margin: 0;
+    font-size: 80%
 }
 
 .even-child {
