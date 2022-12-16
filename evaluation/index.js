@@ -48,17 +48,16 @@ const View = (() => {
 
     const bindSelection = (handler) => {
         const courses = document.querySelector(domstr.available);
-        const credit = document.querySelector(domstr.credit);
 
         courses.addEventListener("click", event => {
             //console.log(event.target);
             const li = event.target.parentElement;
             //console.log(li.classList)
-            li.classList.toggle("selected-child")
-            if (li.select === "1") li.select = "0";
-            else li.select = "1";
-            console.log(selectCourse);
-            handler(li.id, li.select, li);
+            if (li.nodeName !== "UL") {
+                li.classList.toggle("selected-child")
+                if (li.select === "1") li.select = "0";
+                else li.select = "1";
+                handler(li);}
         });
     };
 
@@ -143,8 +142,9 @@ const Controller = ((model, view) => {
     };
 
     const addSelection = () => {
-        view.bindSelection((id, add, li) => {
-            console.log(id, add);
+        view.bindSelection((li) => {
+            id = li.id;
+            add = li.select;
             const credit = available.courses.filter(course => course.courseId == id)[0].credit;
             if (add === '1') {
                 tempSelect.push(id);
