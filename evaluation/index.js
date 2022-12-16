@@ -167,12 +167,13 @@ const Controller = ((model, view) => {
 
     const submitToSelected = () => {
         view.bindSubmit((credit, selectCourse) => {
-            const submitCourses = available.courses.filter(course => course.courseId in selectCourse);
+            const submitCourses = available.courses.filter(course => course.courseId in tempSelect);
             console.log(available);
-            console.log(selectCourse);
+            console.log(tempSelect);
             if (credit < 18) {
                 confirm("You have choose "+credit+" credits, do you want to confirm?")
                 selected.courses = submitCourses;
+                available.courses = available.courses;
             }
         });
     };
